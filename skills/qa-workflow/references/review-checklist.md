@@ -25,6 +25,17 @@ the rest manually, and check everything manually if the script cannot run.
 - [ ] No duplicate or redundant cases without justification
 - [ ] Review status reflects actual user approval
 
+## Characterization Test (when that mode is used)
+
+- [ ] Build/version, environment, and observation date recorded
+- [ ] Every Expected Result is backed by an evidence ID
+- [ ] Behavior reproduced, or marked `Varies` / `Not reproduced`
+- [ ] Non-deterministic fields (timestamps, generated IDs, ordering) masked
+- [ ] Suspected defects labeled and a Behavior Decision recorded for each
+- [ ] Gaps (inputs, roles, states without evidence) listed
+- [ ] No observation taken from Production with real customer data
+- [ ] Test Results left blank or `Untested`
+
 ## Template change review
 
 - [ ] Template layout was profiled and confirmed by the user

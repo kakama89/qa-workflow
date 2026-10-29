@@ -46,9 +46,24 @@ Cập nhật bản mới: mở power trong panel **Powers** → **Check for upda
    - `%USERPROFILE%\.kiro\qa-workflow\inbox` — dùng cho mọi project;
    - hoặc đính kèm khi chat.
 2. Trong chat Kiro, gõ `/qa-workflow` hoặc nói tự nhiên, ví dụ:
-   *"Phân tích BRD này và viết test case"*.
+   *"Phân tích BRD này và viết test case"*. Nếu yêu cầu chưa rõ, agent sẽ hỏi
+   bạn chọn: **1** quy trình bình thường, **2** Characterization Test, hoặc
+   **3** kết hợp cả hai — trả lời bằng số.
 3. Làm theo 5 bước: gửi tài liệu → xem phân tích → review Test Case →
    duyệt → nhận file Excel.
+
+### Characterization Test
+
+Dùng khi cần chụp lại **hành vi hiện tại** của hệ thống làm mốc hồi quy (trước
+khi refactor, migrate, nâng cấp, hoặc khi tài liệu yêu cầu thiếu/lỗi thời).
+Ví dụ: *"Viết characterization test cho API tạo đơn hàng trước khi refactor"*.
+
+- Gửi bằng chứng: screenshot, request/response API, log, kết quả truy vấn DB,
+  file xuất ra; kèm build/version, môi trường và ngày ghi nhận.
+- Expected Result là hành vi **quan sát được** (có mã bằng chứng), không phải
+  hành vi "đúng". Hành vi nghi lỗi vẫn được ghi lại và đánh dấu để bạn quyết
+  định giữ làm baseline, log bug, hay loại bỏ.
+- Không dùng Production với dữ liệu khách hàng thật.
 
 Đổi template: thả file mới vào thư mục trên, lần chạy sau tự áp dụng. Mỗi
 tester có template riêng trên máy mình; template đặt trong
@@ -72,7 +87,7 @@ assets/icon.png                   icon của power (PNG 512x512)
 mcp.json                          kết nối Atlassian MCP (Confluence/Jira)
 skills/qa-workflow/
 ├── SKILL.md                      hướng dẫn workflow cho agent
-├── references/                   quy trình, checklist, quy tắc template
+├── references/                   quy trình, characterization test, checklist, quy tắc template
 ├── scripts/                      đọc template, xuất và kiểm tra Excel (Python)
 └── assets/template.xlsx          template mặc định
 ```

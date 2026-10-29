@@ -3,13 +3,17 @@ name: qa-workflow
 description: >-
   QA workflow for testers: analyze URD, BRD, Confluence pages, User Stories
   and API specs; find requirement gaps and assess Acceptance Criteria; draft
-  test cases for human review; then export an approved Excel (.xlsx)
+  test cases for human review; or baseline an existing system's current
+  behavior as characterization tests before a refactor or migration; then
+  export an approved Excel (.xlsx)
   test-case workbook using each tester's own template (saved as a reusable
   profile) or the bundled default. Use when a user asks to analyze
   requirements, design or review test cases, generate an Excel test report,
-  or set up their test-case template. Vietnamese triggers: phân tích yêu cầu,
-  phân tích tài liệu, review AC, viết test case, thiết kế test case, review
-  test case, xuất Excel, test report, template test case.
+  write characterization tests, or set up their test-case template.
+  Vietnamese triggers: phân tích yêu cầu, phân tích tài liệu, review AC, viết
+  test case, thiết kế test case, review test case, xuất Excel, test report,
+  template test case, characterization test, test hồi quy trước khi refactor,
+  chụp hành vi hiện tại.
 compatibility: Kiro IDE on Windows. Python 3.8+ with openpyxl for the XLSX scripts.
 metadata:
   version: "1.0.0"
@@ -34,6 +38,43 @@ the Test Case Review and the Template Change Review.
 
 Do not skip, merge, or silently bypass a step. At each step, say what is
 known, what is missing, and what decision is needed.
+
+## Choose the mode first
+
+Before Step 1 of every run, settle which mode to use:
+
+- The request clearly names one (requirement documents to analyze → Normal;
+  "characterization", baseline, "hành vi hiện tại", regression before a
+  refactor/migration → Characterization): use it and say so in one line,
+  adding that the tester can switch by replying with the mode number.
+- Otherwise, ask with the numbered options in `references/workflow.md`
+  (*Mode selection*) and wait for the answer. Accept the number, the name, or
+  a free-text description.
+- If the tester is unsure, explain the difference in two lines and
+  recommend one based on what they have: requirement documents → Normal;
+  only a running system or outdated documents → Characterization.
+
+The tester can switch mode at any step; keep work already done that still
+applies and say what has to be redone.
+
+## Characterization Test mode
+
+Use this mode when the tester wants to baseline what an existing system does
+today (before a refactor, migration, or upgrade, or when requirements are
+missing or outdated). Read `references/characterization.md` before Step 1 and
+follow it. The five steps stay the same, with these differences:
+
+- Step 2 produces a **Behavior Inventory** from evidence (screenshots, API
+  responses, logs, DB results) instead of a Requirement Analysis Report.
+- Expected Result is the **observed current behavior** with evidence IDs,
+  never a guess; behaviors that look wrong are kept as observed and labeled
+  `Suspected defect — confirm`.
+- Step 4 adds **Behavior Decisions** (keep as baseline, defect, exclude).
+- Do not act on the system yourself unless the tester explicitly asks for a
+  specific action on a non-production environment.
+
+Say which mode is active. Requirement-based and characterization cases may be
+combined in one run in separate sections.
 
 ## Step 1 — Receive source documents and template
 
@@ -305,6 +346,8 @@ unless it actually ran.
 
 - `references/workflow.md` — conversation contract and output formats for
   each step. Read at the start.
+- `references/characterization.md` — Characterization Test mode. Read before
+  Step 1 when that mode is active.
 - `references/review-checklist.md` — quality gates. Read before Step 4 and
   Step 5.
 - `references/excel-template.md` — template handling, cases JSON format,
