@@ -27,8 +27,11 @@ Cập nhật bản mới: mở power trong panel **Powers** → **Check for upda
 - Dùng MCP server chính thức của Atlassian (`https://mcp.atlassian.com/v2/mcp`,
   HTTP + OAuth). Không lưu token trong power; mỗi tester tự approve bằng tài
   khoản của mình và chỉ đọc được những trang mình có quyền.
-- Power chỉ bật các tool **đọc** (trang, tìm kiếm, tệp đính kèm, comment,
-  Jira issue); mọi tool tạo/sửa/xoá trên Confluence, Jira… đều bị tắt.
+- Power chỉ dùng Confluence/Jira để **đọc** (trang, tìm kiếm, tệp đính kèm,
+  comment, Jira issue). Chuẩn Agent Plugins không cho power tự tắt tool, nên
+  server vẫn có các tool tạo/sửa/xoá: Kiro sẽ hỏi xác nhận trước mỗi lần gọi
+  tool — **đừng duyệt** nếu thấy agent định tạo/sửa/xoá nội dung. Muốn chặn
+  hẳn, tắt các tool đó trong panel **MCP Servers** của Kiro.
 - Chỉ hỗ trợ Confluence **Cloud** (`xxx.atlassian.net`). Admin Atlassian của
   công ty có thể phải bật Rovo MCP Server; việc dùng có thể tính Rovo credits.
 - Cách dùng: dán link trang Confluence vào chat, ví dụ *"Phân tích trang
@@ -66,7 +69,7 @@ truy cập), rồi gửi URL cho tester khác để họ import như bước Cà
 plugin.json                       manifest của Kiro Power
 POWER.md                          metadata hiển thị trong panel Powers (tên, icon)
 assets/icon.png                   icon của power (PNG 512x512)
-mcp.json                          kết nối Atlassian MCP (Confluence/Jira, chỉ đọc)
+mcp.json                          kết nối Atlassian MCP (Confluence/Jira)
 skills/qa-workflow/
 ├── SKILL.md                      hướng dẫn workflow cho agent
 ├── references/                   quy trình, checklist, quy tắc template
