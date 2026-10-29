@@ -173,8 +173,9 @@ Report rules:
 The power connects Kiro to the Atlassian Rovo MCP server
 (`https://mcp.atlassian.com/v2/mcp`, Confluence Cloud). The tester signs in
 once by approving access in the browser (OAuth); no token is stored in the
-power. Only read tools are enabled; never try to create, edit, comment on, or
-move Confluence/Jira content.
+power. The server also exposes write tools, but this workflow is read-only:
+only call read tools, and never create, edit, comment on, or move
+Confluence/Jira content.
 
 How to read sources:
 
