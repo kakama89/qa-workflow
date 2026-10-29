@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "qa-workflow",
+  "version": "1.0.0",
+  "description": "QA workflow cho tester: phân tích URD/BRD/Confluence, review Acceptance Criteria, viết và review Test Case, xuất file Excel theo template riêng của từng tester.",
+  "author": { "name": "toaidx1" },
+  "keywords": [
+    "test case",
+    "testcase",
+    "tester",
+    "QA",
+    "acceptance criteria",
+    "requirement analysis",
+    "BRD",
+    "URD",
+    "confluence",
+    "user story",
+    "test report",
+    "phân tích yêu cầu",
+    "viết test case",
+    "review test case",
+    "xuất excel"
+  ]
+}
