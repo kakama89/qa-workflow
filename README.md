@@ -1,3 +1,5 @@
+<img src="assets/quality-assurance.png" alt="QA Workflow" width="96" align="right">
+
 # QA Workflow — Kiro Power
 
 Kiro Power cho tester trên **Windows**: phân tích URD/BRD/Confluence, review
@@ -62,6 +64,8 @@ truy cập), rồi gửi URL cho tester khác để họ import như bước Cà
 
 ```text
 plugin.json                       manifest của Kiro Power
+POWER.md                          metadata hiển thị trong panel Powers (tên, icon)
+assets/quality-assurance.png      icon của power (PNG 512x512)
 mcp.json                          kết nối Atlassian MCP (Confluence/Jira, chỉ đọc)
 skills/qa-workflow/
 ├── SKILL.md                      hướng dẫn workflow cho agent
