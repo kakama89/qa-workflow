@@ -17,6 +17,10 @@ the rest manually, and check everything manually if the script cannot run.
 - [ ] Each case has a unique ID *(script, for literal or cached IDs)*
 - [ ] Requirement/AC traceability exists where possible
 - [ ] Steps are clear, atomic, and executable
+- [ ] Steps are written as `Step 1:`, `Step 2:`, ... one per line, numbering
+      restarting at 1 in each test case
+- [ ] All test case text is Vietnamese with full diacritics (no unaccented
+      Vietnamese, no English prose)
 - [ ] Expected Result is observable and verifiable
 - [ ] Relevant positive, negative, boundary, validation, permission,
       exception, and integration cases considered

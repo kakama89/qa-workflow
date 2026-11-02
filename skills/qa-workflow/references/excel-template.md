@@ -100,9 +100,9 @@ Use the same overrides for profile, export and validate.
       "id": "",
       "title": "Đăng nhập thành công",
       "precondition": "Tài khoản ở trạng thái Active",
-      "steps": "1. Nhập username <USERNAME>\n2. Nhập password <PASSWORD>\n3. Bấm Đăng nhập",
+      "steps": "Step 1: Nhập username <USERNAME>\nStep 2: Nhập password <PASSWORD>\nStep 3: Bấm Đăng nhập",
       "data": "",
-      "expected": "3.1 Hiển thị trang chủ",
+      "expected": "Hiển thị trang chủ",
       "priority": "High",
       "columns": {"Notes": "Assumption — review required (ISSUE-02)"}
     }
@@ -110,6 +110,11 @@ Use the same overrides for profile, export and validate.
 }
 ```
 
+- Content language: all text values (title, precondition, steps, data,
+  expected, notes) are Vietnamese with full diacritics. Write the file as
+  UTF-8 so diacritics survive.
+- Steps format: one step per line, each starting `Step 1:`, `Step 2:`, ...
+  (numbering restarts at 1 for every test case), joined with `\n`.
 - Keys are column roles. Use `columns` for template headers without a role.
 - Leave `id` empty to use the template's ID formula; give literal IDs for
   templates without one.

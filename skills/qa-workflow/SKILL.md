@@ -148,6 +148,19 @@ Include:
 Test design rules:
 
 - Steps are actionable and ordered.
+- **Language:** write all test case content that goes into the Excel file
+  (title, preconditions, steps, test data descriptions, expected results,
+  notes) in Vietnamese with full diacritics (tiếng Việt có dấu). Never
+  write unaccented Vietnamese ("Dang nhap") and never write the content in
+  English, unless the tester explicitly asks. Keep technical terms, field
+  and button names as they appear in the product or source documents
+  (for example API, endpoint, token, `Submit`). Template headers and
+  dropdown values stay exactly as the template defines them.
+- **Step format:** write Test Steps as one step per line, each line starting
+  with `Step <n>:` where `<n>` counts from 1 for each test case:
+  `Step 1: ...`, `Step 2: ...`, `Step 3: ...`. Do not use `1.`, `1)`,
+  `-`, or bullets. Separate lines with `\n` in the cases JSON. Put one
+  action per step.
 - Expected Results are observable and verifiable, never "works correctly".
 - Cover positive, negative, boundary, validation, authorization, exception,
   and integration cases as relevant to scope; do not add categories
