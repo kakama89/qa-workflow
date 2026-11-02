@@ -98,11 +98,11 @@ Use the same overrides for profile, export and validate.
     {"section": "Đăng nhập"},
     {
       "id": "",
-      "title": "Đăng nhập thành công",
-      "precondition": "Tài khoản ở trạng thái Active",
-      "steps": "Step 1: Nhập username <USERNAME>\nStep 2: Nhập password <PASSWORD>\nStep 3: Bấm Đăng nhập",
-      "data": "",
-      "expected": "Hiển thị trang chủ",
+      "title": "Đăng nhập thành công với tài khoản hợp lệ",
+      "precondition": "Tài khoản đã được kích hoạt (trạng thái Active)",
+      "steps": "Step 1: Mở trang \"Đăng nhập\"\nStep 2: Nhập \"Tên đăng nhập\" là <USERNAME>\nStep 3: Nhập \"Mật khẩu\" là <PASSWORD>\nStep 4: Bấm nút \"Đăng nhập\"",
+      "data": "Tên đăng nhập: <USERNAME>; Mật khẩu: <PASSWORD>",
+      "expected": "Hệ thống chuyển sang trang chủ và hiển thị tên người dùng ở góc trên bên phải",
       "priority": "High",
       "columns": {"Notes": "Assumption — review required (ISSUE-02)"}
     }

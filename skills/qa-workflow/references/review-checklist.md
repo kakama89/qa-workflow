@@ -21,6 +21,11 @@ the rest manually, and check everything manually if the script cannot run.
       restarting at 1 in each test case
 - [ ] All test case text is Vietnamese with full diacritics (no unaccented
       Vietnamese, no English prose)
+- [ ] Test cases are human readable: descriptive one-line title, short
+      natural sentences, steps start with an action verb, UI names match the
+      screen, concrete data is given, a tester can run the case without
+      reading the source documents
+- [ ] Expected Result describes what the tester sees and does not repeat steps
 - [ ] Expected Result is observable and verifiable
 - [ ] Relevant positive, negative, boundary, validation, permission,
       exception, and integration cases considered
