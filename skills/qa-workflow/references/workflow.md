@@ -101,6 +101,13 @@ Present a compact table, split into several tables if needed:
 | ID | Requirement/AC | Title | Type | Preconditions | Test Data | Steps | Expected Result | Priority | Issue/Assumption | Review Status |
 |----|----------------|-------|------|---------------|-----------|-------|-----------------|----------|------------------|---------------|
 
+- Write the cell text in Vietnamese with full diacritics, and write Steps as
+  `Step 1: ...`, `Step 2: ...` (one per line; use `<br>` for line breaks in
+  the Markdown table). The exported Excel uses the same text.
+- Write for a human reader: descriptive one-line titles, short natural
+  sentences, steps starting with an action verb, UI names as shown on screen,
+  and concrete data (see *Readability* in `SKILL.md`). Example:
+  `Step 1: Mở trang "Đăng nhập"<br>Step 2: Nhập "Tên đăng nhập" là <USERNAME><br>Step 3: Bấm nút "Đăng nhập"`.
 - Use `TBD` only when the value is known to be required; explain what is
   missing.
 - Use `N/A` only when genuinely not applicable.

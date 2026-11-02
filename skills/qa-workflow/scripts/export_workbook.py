@@ -17,7 +17,7 @@ cases.json (UTF-8):
     "metadata": {"Project Name:": "...", "Cover!E16": "1.0"},
     "cases": [
       {"section": "Login"},
-      {"id": "", "title": "...", "precondition": "...", "steps": "1. ...\\n2. ...",
+      {"id": "", "title": "...", "precondition": "...", "steps": "Step 1: ...\\nStep 2: ...",
        "data": "...", "expected": "...", "priority": "High",
        "columns": {"Any other header text": "value"}}
     ]

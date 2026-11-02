@@ -148,6 +148,37 @@ Include:
 Test design rules:
 
 - Steps are actionable and ordered.
+- **Language:** write all test case content that goes into the Excel file
+  (title, preconditions, steps, test data descriptions, expected results,
+  notes) in Vietnamese with full diacritics (tiếng Việt có dấu). Never
+  write unaccented Vietnamese ("Dang nhap") and never write the content in
+  English, unless the tester explicitly asks. Keep technical terms, field
+  and button names as they appear in the product or source documents
+  (for example API, endpoint, token, `Submit`). Template headers and
+  dropdown values stay exactly as the template defines them.
+- **Step format:** write Test Steps as one step per line, each line starting
+  with `Step <n>:` where `<n>` counts from 1 for each test case:
+  `Step 1: ...`, `Step 2: ...`, `Step 3: ...`. Do not use `1.`, `1)`,
+  `-`, or bullets. Separate lines with `\n` in the cases JSON. Put one
+  action per step.
+- **Readability (human readable):** a tester who has not read the source
+  documents must be able to run the case from the Excel alone.
+  - Write natural, plain Vietnamese in short sentences, starting each step
+    with an action verb (Mở, Nhập, Chọn, Bấm, Kiểm tra). Avoid long
+    compound sentences, jargon, unexplained abbreviations, and
+    machine-style text such as `click btn_submit` or `verify status==200`.
+  - Name screens, fields, and buttons exactly as the UI shows them, in
+    double quotes (for example: bấm nút "Đăng nhập").
+  - Put the concrete value to enter in the step itself or point to Test
+    Data (for example: nhập "Tên đăng nhập" là `<USERNAME>`); never leave
+    "nhập dữ liệu hợp lệ" without saying which data.
+  - Title states the scenario and condition in one line, for example
+    "Đăng nhập thất bại khi nhập sai mật khẩu", not "TC01" or "Test login".
+  - Expected Result says what the tester will see (message text, screen,
+    field value, status), in one or a few short lines. Do not repeat the
+    steps inside it.
+  - Keep one case focused on one purpose, and keep it to about 10 steps or
+    fewer; split longer flows.
 - Expected Results are observable and verifiable, never "works correctly".
 - Cover positive, negative, boundary, validation, authorization, exception,
   and integration cases as relevant to scope; do not add categories
