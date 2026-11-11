@@ -81,6 +81,325 @@ truy cập), rồi gửi URL cho tester khác để họ import như bước Cà
 > Không đưa template có token, cookie, mật khẩu thật vào repo. Power sẽ từ
 > chối template chứa thông tin dạng này.
 
+## Hướng dẫn chi tiết từng lệnh và chức năng
+
+### `/qa-workflow` — Lệnh chính
+
+**Dùng để làm gì:**
+Đây là lệnh chính để bắt đầu toàn bộ quy trình QA — từ phân tích tài liệu yêu cầu đến khi xuất file Excel chứa Test Case hoàn chỉnh.
+
+**Dùng khi nào:**
+- Khi bạn nhận được tài liệu yêu cầu (URD, BRD, User Story, trang Confluence) và cần viết Test Case.
+- Khi cần review lại Acceptance Criteria xem có rõ ràng, đầy đủ không.
+- Khi cần xuất file Excel Test Case theo template riêng của bạn hoặc của team.
+
+**Cách dùng:**
+Gõ `/qa-workflow` trong chat Kiro, hoặc nói tự nhiên:
+- *"Phân tích BRD này và viết test case"*
+- *"Review AC của trang Confluence này: https://congty.atlassian.net/wiki/..."*
+- *"Viết test case cho chức năng đăng nhập"*
+
+---
+
+### 3 chế độ làm việc
+
+#### Chế độ 1: Quy trình bình thường
+
+**Dùng để làm gì:**
+Phân tích tài liệu yêu cầu (URD, BRD, Confluence, User Story), tìm lỗi/thiếu sót trong yêu cầu, rồi viết Test Case dựa trên yêu cầu đó.
+
+**Dùng khi nào:**
+- Khi bạn **có tài liệu yêu cầu** rõ ràng (BRD, URD, User Story, Acceptance Criteria).
+- Khi dự án đang trong giai đoạn phát triển mới và cần viết Test Case từ đầu.
+
+**Cách dùng:**
+Gửi tài liệu yêu cầu cho Kiro, ví dụ: *"Phân tích BRD đính kèm và viết test case cho module thanh toán"*.
+Khi Kiro hỏi chọn chế độ, trả lời **1**.
+
+#### Chế độ 2: Characterization Test (Chụp hành vi hiện tại)
+
+**Dùng để làm gì:**
+Ghi lại hành vi **thực tế** của hệ thống đang chạy làm mốc so sánh (baseline) — không phải hành vi "đúng", mà là hành vi "đang có". Nếu phát hiện lỗi thì vẫn ghi lại và đánh dấu, không bỏ qua.
+
+**Dùng khi nào:**
+- Trước khi **refactor** code (viết lại mà không đổi chức năng).
+- Trước khi **migrate** hệ thống (chuyển sang nền tảng/công nghệ khác).
+- Trước khi **nâng cấp** thư viện, framework, hoặc database.
+- Khi **tài liệu yêu cầu không có hoặc đã lỗi thời**, chỉ còn hệ thống đang chạy.
+- Khi tiếp nhận hệ thống cũ mà không ai viết tài liệu.
+
+**Cách dùng:**
+Nói với Kiro: *"Viết characterization test cho API tạo đơn hàng trước khi refactor"*.
+Gửi kèm bằng chứng: screenshot, request/response API, log, kết quả truy vấn DB.
+Khi Kiro hỏi chọn chế độ, trả lời **2**.
+
+#### Chế độ 3: Kết hợp cả hai
+
+**Dùng để làm gì:**
+Phần nào có tài liệu yêu cầu thì viết Test Case theo yêu cầu, phần nào không có tài liệu thì chụp hành vi hiện tại. Hai phần được tách riêng rõ ràng.
+
+**Dùng khi nào:**
+- Khi hệ thống có một số chức năng có tài liệu đầy đủ, một số chức năng chỉ có code chạy mà không có tài liệu.
+- Khi vừa phát triển tính năng mới vừa bảo trì code cũ.
+
+**Cách dùng:**
+Khi Kiro hỏi chọn chế độ, trả lời **3**.
+
+---
+
+### 5 bước trong quy trình
+
+#### Bước 1: Gửi tài liệu và template
+
+**Dùng để làm gì:**
+Cung cấp đầu vào cho Kiro — tài liệu yêu cầu cần phân tích và template Excel mà bạn muốn dùng để xuất Test Case.
+
+**Dùng khi nào:**
+Luôn là bước đầu tiên. Kiro sẽ tự tìm template của bạn, bạn chỉ cần gửi tài liệu.
+
+**Cách dùng:**
+- Gửi file URD, BRD, hoặc dán link Confluence/Jira vào chat.
+- Template Excel: thả vào `.kiro\qa-workflow\inbox` trong project (hoặc `%USERPROFILE%\.kiro\qa-workflow\inbox` dùng cho mọi project), Kiro tự nhận — không cần gõ lệnh gì.
+- Nếu không có template riêng, Kiro dùng template mặc định.
+
+#### Bước 2: Phân tích yêu cầu
+
+**Dùng để làm gì:**
+Kiro đọc tài liệu và tạo báo cáo phân tích: liệt kê yêu cầu, Acceptance Criteria, tìm mâu thuẫn, thiếu sót, yêu cầu mơ hồ, và đặt câu hỏi cần BA/PO trả lời.
+
+**Dùng khi nào:**
+Tự động chạy sau Bước 1. Bạn xem báo cáo, trả lời câu hỏi nếu có, rồi tiếp tục.
+
+**Cách dùng:**
+Đọc báo cáo Kiro gửi, trả lời các câu hỏi mở (nếu có). Nếu đồng ý thì nói tiếp tục, nếu cần bổ sung thì gửi thêm tài liệu.
+
+#### Bước 3: Xem Test Case dự thảo
+
+**Dùng để làm gì:**
+Kiro soạn Test Case dạng bảng để bạn review trước khi xuất Excel. Mỗi test case có: ID, tiêu đề, điều kiện tiên quyết, các bước, dữ liệu test, kết quả mong đợi, mức ưu tiên.
+
+**Dùng khi nào:**
+Tự động chạy sau Bước 2. Đây là lúc bạn kiểm tra nội dung Test Case có đúng, đủ, rõ ràng không.
+
+**Cách dùng:**
+Đọc bảng Test Case, góp ý nếu cần sửa (thêm/bớt case, sửa bước, đổi mức ưu tiên...). Kiro sẽ sửa theo yêu cầu.
+
+#### Bước 4: Duyệt và phê duyệt
+
+**Dùng để làm gì:**
+Review cuối cùng trước khi xuất file. Kiro trình bày 3 phần:
+1. **Test Case Review** — tổng quan Test Case, độ phủ, giả định.
+2. **Template Change Review** — nếu cần thay đổi gì trên template (thêm cột, đổi dropdown...).
+3. **Open Issues** — vấn đề chưa giải quyết.
+
+**Dùng khi nào:**
+Sau khi bạn đã xem và hài lòng với Test Case ở Bước 3.
+
+**Cách dùng:**
+Chọn một trong các hành động:
+- **Duyệt** — đồng ý xuất file.
+- **Yêu cầu sửa Test Case** — quay lại chỉnh sửa.
+- **Yêu cầu sửa template** — thay đổi cấu trúc file Excel.
+- **Quay lại phân tích yêu cầu** — cần làm rõ thêm yêu cầu.
+
+#### Bước 5: Xuất file Excel và kiểm tra
+
+**Dùng để làm gì:**
+Kiro ghi Test Case đã duyệt vào file Excel mới (không ghi đè template gốc), rồi chạy kiểm tra tự động để đảm bảo file hợp lệ.
+
+**Dùng khi nào:**
+Sau khi bạn duyệt ở Bước 4. Kiro tự chạy, bạn nhận file kết quả.
+
+**Cách dùng:**
+Không cần gõ lệnh gì — Kiro tự xuất và kiểm tra. Bạn sẽ nhận được:
+- Đường dẫn file Excel mới.
+- Tóm tắt thay đổi.
+- Kết quả kiểm tra (lỗi đã sửa, cảnh báo còn lại).
+
+---
+
+### Quản lý Template (Profile)
+
+#### Thả template vào inbox (cách đơn giản nhất)
+
+**Dùng để làm gì:**
+Cho Kiro biết bạn muốn dùng template Excel nào, không cần gõ lệnh.
+
+**Dùng khi nào:**
+- Lần đầu dùng power và muốn dùng template riêng (không dùng template mặc định).
+- Khi muốn đổi sang template mới.
+
+**Cách dùng:**
+Kéo thả file `.xlsx` vào một trong hai thư mục:
+- `.kiro\qa-workflow\inbox` trong project — dùng cho project này, commit lên git để team dùng chung.
+- `%USERPROFILE%\.kiro\qa-workflow\inbox` — dùng cho riêng bạn, áp dụng cho mọi project.
+
+Lần chạy `/qa-workflow` tiếp theo, Kiro tự nhận template mới.
+
+#### Đính kèm template trong chat
+
+**Dùng để làm gì:**
+Gửi template trực tiếp trong cuộc trò chuyện mà không cần copy file vào thư mục.
+
+**Dùng khi nào:**
+- Khi muốn thử nhanh một template mà không cần lưu lâu dài.
+- Khi ai đó gửi template cho bạn qua chat.
+
+**Cách dùng:**
+Đính kèm file `.xlsx` khi chat với Kiro, ví dụ: *"Dùng template này để xuất test case"*.
+
+#### `qa_profiles.py auto` — Tự động nhận template
+
+**Dùng để làm gì:**
+Quét thư mục inbox, tự động import template mới/đã thay đổi thành profile, và báo cáo template nào đang được dùng (Active).
+
+**Dùng khi nào:**
+Kiro tự chạy lệnh này mỗi lần bắt đầu `/qa-workflow` — **bạn không cần gõ**. Chỉ cần biết để hiểu Kiro đang làm gì.
+
+**Cách dùng (Kiro tự chạy):**
+```
+py -3 scripts/qa_profiles.py auto
+py -3 scripts/qa_profiles.py auto --template "file-dinh-kem.xlsx"
+```
+
+#### `qa_profiles.py add` — Thêm/cập nhật profile thủ công
+
+**Dùng để làm gì:**
+Tạo profile cho template với các tuỳ chỉnh nâng cao: đặt tên người dùng, chỉ định cột, thêm metadata mặc định.
+
+**Dùng khi nào:**
+- Khi Kiro nhận sai cột (ví dụ cột "Các bước" bị nhận nhầm).
+- Khi muốn điền sẵn thông tin vào trang Cover (tên tester, tên dự án...).
+- Khi cần tinh chỉnh mà cách thả inbox không đủ.
+
+**Cách dùng (nói Kiro làm cho bạn):**
+Nói: *"Template của mình cột Expected Result là cột G, không phải F"* — Kiro sẽ chạy `add` với `--col expected=G`.
+
+#### `qa_profiles.py list` — Xem danh sách profile
+
+**Dùng để làm gì:**
+Liệt kê tất cả profile đã lưu (tên, template, trạng thái default).
+
+**Dùng khi nào:**
+Khi muốn biết mình đã lưu những template nào, hoặc khi có nhiều template và cần chọn.
+
+**Cách dùng:**
+Nói: *"Cho mình xem danh sách template đã lưu"*.
+
+#### `qa_profiles.py show` — Xem chi tiết profile
+
+**Dùng để làm gì:**
+Hiển thị chi tiết một profile: tên template, sheet nào, header ở dòng mấy, cột nào ánh xạ với role nào, dropdown có những giá trị gì.
+
+**Dùng khi nào:**
+Khi muốn kiểm tra Kiro đã hiểu template của bạn đúng chưa.
+
+**Cách dùng:**
+Nói: *"Cho mình xem chi tiết profile template-ngan"*.
+
+#### `qa_profiles.py set-default` — Đặt profile mặc định
+
+**Dùng để làm gì:**
+Chọn một profile làm mặc định — lần sau chạy `/qa-workflow` sẽ dùng profile này nếu không có template mới hơn trong inbox.
+
+**Dùng khi nào:**
+Khi bạn có nhiều profile và muốn chỉ định rõ cái nào dùng thường xuyên nhất.
+
+**Cách dùng:**
+Nói: *"Đặt template-ngan làm template mặc định"*.
+
+#### `qa_profiles.py remove` — Xoá profile
+
+**Dùng để làm gì:**
+Xoá một profile không dùng nữa (xoá file cấu hình và bản copy template).
+
+**Dùng khi nào:**
+Khi template cũ không còn dùng và muốn dọn dẹp.
+
+**Cách dùng:**
+Nói: *"Xoá profile template-cu đi"* — Kiro sẽ hỏi xác nhận trước khi xoá.
+
+---
+
+### Kiểm tra file Excel
+
+#### `validate_workbook.py profile` — Đọc cấu trúc template
+
+**Dùng để làm gì:**
+Phân tích một file Excel template: tìm sheet Test Case, dòng header, ánh xạ cột, dropdown, công thức ID, và báo cáo kết quả.
+
+**Dùng khi nào:**
+- Kiro tự chạy khi lần đầu gặp template mới — **bạn không cần gõ**.
+- Khi muốn kiểm tra Kiro hiểu template đúng không.
+
+**Cách dùng:**
+Nói: *"Kiểm tra cấu trúc template này cho mình"* và đính kèm file.
+
+#### `validate_workbook.py validate` — Kiểm tra file Excel đã xuất
+
+**Dùng để làm gì:**
+Kiểm tra file Excel sau khi xuất: mở được không, có đủ sheet/cột không, ID có trùng không, dropdown đúng không, có lỡ để lọt mật khẩu/token không, công thức có lỗi `#REF!` không.
+
+**Dùng khi nào:**
+- Kiro tự chạy sau khi xuất file ở Bước 5 — **bạn không cần gõ**.
+- Khi muốn kiểm tra lại file Excel bất kỳ.
+
+**Cách dùng:**
+Nói: *"Kiểm tra file test-case-output.xlsx cho mình"*.
+
+---
+
+### Xuất file Excel
+
+#### `export_workbook.py` — Ghi Test Case vào Excel
+
+**Dùng để làm gì:**
+Lấy Test Case đã duyệt (lưu dạng JSON) và ghi vào file Excel mới dựa trên template. Không bao giờ ghi đè template gốc.
+
+**Dùng khi nào:**
+- Kiro tự chạy ở Bước 5 — **bạn không cần gõ**.
+- Script này tự động mở rộng dropdown, copy style, mở rộng công thức tổng hợp cho đủ số dòng.
+
+**Cách dùng:**
+Bạn chỉ cần duyệt Test Case ở Bước 4, Kiro lo phần còn lại.
+
+---
+
+### Kết nối Confluence / Jira
+
+**Dùng để làm gì:**
+Cho phép Kiro đọc trực tiếp trang Confluence và Jira issue mà không cần bạn copy-paste nội dung.
+
+**Dùng khi nào:**
+- Khi tài liệu yêu cầu nằm trên Confluence Cloud (`xxx.atlassian.net`).
+- Khi User Story và Acceptance Criteria nằm trên Jira.
+
+**Cách dùng:**
+1. Lần đầu: Kiro mở trình duyệt để bạn đăng nhập Atlassian và bấm **Approve**.
+2. Sau đó chỉ cần dán link vào chat: *"Phân tích trang này: https://congty.atlassian.net/wiki/spaces/ABC/pages/123456/..."*
+3. Nếu không kết nối được: vào panel **MCP Servers** trong Kiro, chọn server `atlassian`, kết nối lại.
+
+**Lưu ý quan trọng:**
+- Chỉ hỗ trợ Confluence **Cloud**, không hỗ trợ Server/Data Center.
+- Power chỉ **đọc**, không tạo/sửa/xoá nội dung. Nếu Kiro hỏi quyền tạo/sửa/xoá → **đừng duyệt**.
+- Bạn chỉ đọc được trang mà tài khoản Atlassian của bạn có quyền.
+
+---
+
+### Tóm tắt: Khi nào dùng gì?
+
+| Bạn muốn... | Làm gì |
+|---|---|
+| Viết Test Case từ tài liệu yêu cầu | Gõ `/qa-workflow`, chọn chế độ **1** |
+| Chụp hành vi hệ thống trước khi refactor | Gõ `/qa-workflow`, chọn chế độ **2** |
+| Vừa có tài liệu vừa có hệ thống cũ | Gõ `/qa-workflow`, chọn chế độ **3** |
+| Dùng template Excel riêng | Thả file `.xlsx` vào `.kiro\qa-workflow\inbox` |
+| Dùng template chung cho team | Thả file vào `.kiro\qa-workflow\inbox` trong project, commit lên git |
+| Đọc trang Confluence | Dán link vào chat |
+| Xem Kiro hiểu template đúng chưa | Nói *"Cho xem chi tiết profile"* |
+| Sửa cột bị nhận sai | Nói *"Cột Expected Result là cột G"* |
+| Kiểm tra file Excel đã xuất | Nói *"Kiểm tra file này cho mình"* |
+
 ## Cấu trúc
 
 ```text
