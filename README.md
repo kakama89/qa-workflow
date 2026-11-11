@@ -12,6 +12,9 @@ Acceptance Criteria, viết và review Test Case, rồi xuất file Excel theo
    **Add python.exe to PATH**.
 2. Trong Kiro: mở panel **Powers** → **Add Custom Power** →
    **Import power from GitHub** → dán URL repo này → **Install**.
+
+   ![Cài đặt Kiro Power](assets/install-power.png)
+
 3. Lần chạy đầu, Kiro sẽ hỏi để cài thư viện `openpyxl` — chọn đồng ý.
 
 4. Kết nối Confluence (Cloud): khi power cần đọc trang Confluence lần đầu,
